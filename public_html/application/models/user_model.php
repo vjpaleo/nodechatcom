@@ -156,6 +156,13 @@ class User_model extends CI_Model {
 	}
 
 	/**
+	 *
+	 */
+	public function login(Array $inData) {
+		return false;
+	}
+
+	/**
 	 * Delete user from the table.
 	 * @param Array u_id or u_app_uid.
 	 * @return Boolean
