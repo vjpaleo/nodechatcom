@@ -159,7 +159,17 @@ class User_model extends CI_Model {
 	 *
 	 */
 	public function login(Array $inData) {
-		return false;
+
+		$logindata['conditions'] = array('u_email' => $inData['email'], 'u_password' => $inData['password']);
+		$logindata['limit'] = 1;
+		$objReturn = $this->getUsers($logindata);
+
+		if($objReturn) {
+
+		} else {
+			return false;	
+		}
+		
 	}
 
 	/**

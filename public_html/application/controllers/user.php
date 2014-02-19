@@ -14,10 +14,44 @@ class User extends CI_Controller {
 
 	/**
 	 * User Controller
-	 */
+	 
 	public function index()
 	{
 		$this->load->view('user/manage');
+	}
+	*/
+
+	public function user_get() {
+		echo 'abc'; exit;
+	}
+
+	public function register() {
+
+		$inData = array();
+
+		if($this->input->post('btn-register-submit') !== false) {
+
+			$inData['ufullname'] = $this->input->post('ufullname');
+			$inData['uemail'] = $this->input->post('uemail');
+			$inData['upassword'] = $this->input->post('upassword');
+			$inData['cpassword'] = $this->input->post('cpassword');
+			$inData['udob'] = $this->input->post('udob');
+
+			if($inData['upassword'] === $inData['cpassword']) {
+				$salt = 'MY_BEST_SALT';
+				$inData['cpassword'] = md5($inData['cpassword'].$salt);
+
+				$this->user_model->register($inData);
+				$_POST['btn-login-submit'] = 1;
+				$this->login();
+			}
+		}
+
+		$formData = $inData;
+		$content = $this->load->view('user/register_form', $formData, true);
+
+		$this->render($content, __function__);
+
 	}
 
 	/**
@@ -72,6 +106,42 @@ class User extends CI_Controller {
 			$formData['email'] = $cookieData['em'];
 			$formData['password'] = $cookieData['pw'];
 			$formData['rememberme'] = $cookieData['rm'];
+		}
+
+		// Load library
+		$this->load->library('memcached_library');
+
+		//$this->memcached_library->add('foo', 'bar codeigniter');
+
+		// Lets try to get the key
+		$results = $this->memcached_library->get('4507');
+
+		var_dump($results);
+
+		echo $this->memcached_library->getversion();
+		echo "<br/>";
+
+		// We can use any of the following "reset, malloc, maps, cachedump, slabs, items, sizes"
+		$p = $this->memcached_library->getstats("sizes");
+
+		var_dump($p);
+		exit;
+		// If the key does not exist it could mean the key was never set or expired
+		if (!$results) 
+		{
+			// Lets store the results
+			$this->memcached_library->add('foo', 'bar codeigniter');
+
+			// Output a basic msg
+			echo "Alright! Stored some results from the Query... Refresh Your Browser";
+		}
+		else 
+		{
+			// Output
+			var_dump($results);
+
+			// Now let us delete the key for demonstration sake!
+			//$this->memcached_library->delete('test');
 		}
 
 		$content = $this->load->view('user/login_form', $formData, true);
