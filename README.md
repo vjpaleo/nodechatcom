@@ -15,3 +15,14 @@ Application Requirements on Ubuntu 12.10:
 8) NodeJs
 
 Use "apt-get install" to install the above services.
+
+
+Javascript Libraries used :
+
+1) JQuery Validation.
+2) Bootstrap Js.
+3) Underscore Js.
+
+Css :
+1) Bootstrap.
+ 
