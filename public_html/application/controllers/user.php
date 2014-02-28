@@ -51,7 +51,7 @@ class User extends CI_Controller {
 		} else {
 			$inData = array_fill_keys($this->formFields, NULL);
 		}
-		var_dump($inData);
+		//var_dump($inData);
 		$formData = $inData;
 		$content = $this->load->view('user/register_form', $formData, true);
 

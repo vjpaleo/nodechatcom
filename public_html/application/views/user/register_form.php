@@ -1,27 +1,55 @@
 <!-- Bootstrap Form Helpers -->
-    <link href="http://nodeChat.com/assets/formhelpers/dist/css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
-
-      <form class="form-signin" id="form-signup" role="form" action="/user/register" method="post">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Why Node Chat?</h2>
+           
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <div id="list-content" class="float-right">
+           <ul>
+               <li>Run your <strong>own enterprise instant messaging</strong> network</li>
+               <li><strong>30-day FREE Trial</strong> - No up-front fees, No credit card details</li>
+               <li><strong>Highly Secure</strong> - Never worry about hackers and data leaks</li>
+               <li><strong>Low monthly cost</strong> - starting from $0.99 per user</li>
+               <li><strong>Best Features</strong> - Remote control, Screen sharing </li>
+               <li><strong>Excellent</strong> for small and medium businesses</li>
+               <li>Runs on Win, Linux, Mac, <strong>iPhone</strong> and <strong>Android</strong></li>
+           </ul>
+       </div>
+      </div>
+      <div class="col-md-6">
         <h2 class="form-signin-heading">Please sign up to chat with your firends. Its Free!</h2>
-        <lable for="ufullname"> Full Name : </lable>
-        <input type="text" name="ufullname" id="ufullname" value="<?=($ufullname) ?: NULL;?>" class="form-control" placeholder="Enter your full name" required autofocus>
-        <lable for="ufullname"> Email : </lable>
-        <input type="text" name="uemail" id="uemail" value="<?=($uemail) ?: NULL;?>" class="form-control" placeholder="Enter your email address" required >
-        <lable for="ufullname"> Password : </lable>
-        <input type="password" name="upassword" value="" class="form-control" placeholder="Enter Password" required>
-        <lable for="ufullname"> Re-enter Password : </lable>
-        <input type="password" name="cpassword" value="" class="form-control" placeholder="Confirm Password" required>
-        <lable for="ufullname"> Date of Birth : </lable>
-        <input type="date" name="udob" value="<?=($udob) ?: NULL;?>" class="form-control" placeholder="Enter your Date Of Birth in MM-DD-YYYY format" required>
-        <lable for="ufullname"> Zipcode : </lable>
-        <input type="text" name="uzipcode" value="<?=($uzipcode) ?: NULL;?>" class="form-control" placeholder="Enter your zip code." required>
-        <lable for="ufullname">Country : </lable>
-        
-        <input type="hidden" name="ucountry" value="<?=($ucountry) ?: NULL;?>" class="form-control" placeholder="Enter your country" required>
-        <div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true"></div>
-        
-        <button class="btn btn-lg btn-primary btn-block" name="btn-register-submit" type="submit">Sign up</button>
-      </form>
+        <form class="form-signin" id="form-signup" role="form" action="/user/register" method="post"  role="form">
+          <fieldset>
+            <!-- legend>Sign Up here..</legend -->
+            
+            <lable for="ufullname"> Full Name : </lable>
+            <input type="text" name="ufullname" id="ufullname" value="<?=($ufullname) ?: NULL;?>" class="form-control" placeholder="Enter your full name" required autofocus>
+            
+            <lable for="uemail"> Email : </lable>
+            <input type="text" name="uemail" id="uemail" value="<?=($uemail) ?: NULL;?>" class="form-control" placeholder="Enter your email address" required>
+            
+            <lable for="upassword"> Password : </lable>
+            <input type="password" name="upassword" value="" class="form-control" placeholder="Enter Password" required>
+
+            <lable for="cpassword"> Re-enter Password : </lable>
+            <input type="password" name="cpassword" value="" class="form-control" placeholder="Confirm Password" required>
+            
+            <lable for="udob"> Date of Birth : </lable>
+            <input type="date" name="udob" value="<?=($udob) ?: NULL;?>" class="form-control" placeholder="Enter your Date Of Birth in MM-DD-YYYY format" required>
+            
+            <lable for="ufullname"> Zipcode : </lable>
+            <input type="uzipcode" name="uzipcode" value="<?=($uzipcode) ?: NULL;?>" class="form-control" placeholder="Enter your zip code." required>
+            
+            <lable for="ucountry">Country : </lable>
+            <input type="hidden" name="ucountry" value="<?=($ucountry) ?: NULL;?>" class="form-control" placeholder="Enter your country" required>
+            <div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true"></div>
+            
+            <button class="btn btn-lg btn-primary btn-block" name="btn-register-submit" type="submit">Sign up</button>
+          
+          </fieldset>
+        </form>
+      </div>
+    </div>
 <script src="http://nodeChat.com/assets/js/jquery.validate.js"></script>
 
 <!-- Bootstrap Form Helpers -->
@@ -90,3 +118,49 @@ $(document).ready(function () {
   });
 });
 </script>
+<style>
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  /* margin-bottom: -1px; */
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
