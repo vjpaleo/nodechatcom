@@ -43,7 +43,7 @@
             <lable for="ucountry">Country : </lable>
             <input type="hidden" name="ucountry" value="<?=($ucountry) ?: NULL;?>" class="form-control" placeholder="Enter your country" required>
             <div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true"></div>
-            
+            <br/><br/>
             <button class="btn btn-lg btn-primary btn-block" name="btn-register-submit" type="submit">Sign up</button>
           
           </fieldset>
