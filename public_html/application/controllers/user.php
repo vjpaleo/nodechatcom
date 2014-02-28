@@ -2,7 +2,8 @@
 
 class User extends CI_Controller {
 
-	
+	private $formFields = array('ufullname', 'uemail', 'upassword', 'cpassword', 'udob', 'uzipcode', 'ucountry');
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -36,6 +37,8 @@ class User extends CI_Controller {
 			$inData['upassword'] = $this->input->post('upassword');
 			$inData['cpassword'] = $this->input->post('cpassword');
 			$inData['udob'] = $this->input->post('udob');
+			$inData['uzipcode'] = $this->input->post('uzipcode');
+			$inData['ucountry'] = $this->input->post('ucountry');
 
 			if($inData['upassword'] === $inData['cpassword']) {
 				$salt = 'MY_BEST_SALT';
@@ -45,8 +48,10 @@ class User extends CI_Controller {
 				$_POST['btn-login-submit'] = 1;
 				$this->login();
 			}
+		} else {
+			$inData = array_fill_keys($this->formFields, NULL);
 		}
-
+		var_dump($inData);
 		$formData = $inData;
 		$content = $this->load->view('user/register_form', $formData, true);
 
@@ -124,8 +129,7 @@ class User extends CI_Controller {
 		// We can use any of the following "reset, malloc, maps, cachedump, slabs, items, sizes"
 		$p = $this->memcached_library->getstats("sizes");
 
-		var_dump($p);
-		exit;
+		
 		// If the key does not exist it could mean the key was never set or expired
 		if (!$results) 
 		{
