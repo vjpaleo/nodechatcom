@@ -3,7 +3,7 @@ class User_model extends CI_Model {
 	
 	private $fields = array('u_id', 'u_app_uid', 'u_username', 'u_password', 
 							'u_fullname', 'u_email', 'u_dob', 
-							'u_is_active', 'u_create_datetime');
+							'u_is_active', 'u_create_datetime', 'u_zipcode', 'u_country');
 
 	private static $table = "users";
 
@@ -44,16 +44,20 @@ class User_model extends CI_Model {
 			return false;
 		}
 
+		$userData['u_create_datatime'] = date('Y-m-d h:i:s');
+		$userData['u_is_active'] = 1;
 
 		/* @todo : move it to utility and add salt to it. */
 		/* Generate unique application userId */
-		$userData['u_app_uid'] = strtotime(date('Y-m-d h:i:s')).str_replace('.', '', $_SERVER['REMOTE_ADDR']);
+		$userData['u_app_uid'] = strtotime($userData['u_create_datatime']).str_replace('.', '', $_SERVER['REMOTE_ADDR']);
 
 		/* Select only those fields that are present in the users table. */
-		$validUserData = array_intersect($userData, array_flip($this->fields));
+		$validUserData = array_intersect_key($userData, array_flip($this->fields));
+
 
 		/* Insert user data. */
 		if($this->db->insert(self::$table, $validUserData)) {
+
 			/* userId generated for the new user. */
 			$userId = $this->db->insert_id();
 
@@ -100,11 +104,11 @@ class User_model extends CI_Model {
 		}
 		
 		/* Select only those fields that are present in the users table. */
-		$validUserData = array_intersect($userData, array_flip($this->fields));
+		$validUserData = array_intersect_key($userData, array_flip($this->fields));
 
 
 		$this->db->where('u_app_uid', $userData['u_app_uid']);
-		$this-> db->limit(1);
+		$this->db->limit(1);
 		
 		unset($validUserData['u_id'],$validUserData['u_app_uid']);
 
@@ -158,11 +162,29 @@ class User_model extends CI_Model {
 	/**
 	 *
 	 */
-	public function login(Array $inData) {
+	public function login(Array $inData, &$responseData) {
 
 		$logindata['conditions'] = array('u_email' => $inData['email'], 'u_password' => $inData['password']);
 		$logindata['limit'] = 1;
 		$objReturn = $this->getUsers($logindata);
+
+		if($objReturn) {
+			$responseData['user'] = (Array)$objReturn[0];
+			return true;
+		} else {
+			return false;	
+		}
+		
+	}
+	
+	/**
+	 *
+	 */
+	public function register(Array $inData) {
+		
+		$inData['fields'] = $inData;
+
+		$objReturn = $this->addUser($inData);
 
 		if($objReturn) {
 

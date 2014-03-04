@@ -15,13 +15,12 @@ class User extends CI_Controller {
 
 	/**
 	 * User Controller
-	 
+	 */ 
 	public function index()
 	{
 		$this->load->view('user/manage');
 	}
-	*/
-
+	
 	public function user_get() {
 		echo 'abc'; exit;
 	}
@@ -32,17 +31,20 @@ class User extends CI_Controller {
 
 		if($this->input->post('btn-register-submit') !== false) {
 
-			$inData['ufullname'] = $this->input->post('ufullname');
-			$inData['uemail'] = $this->input->post('uemail');
-			$inData['upassword'] = $this->input->post('upassword');
-			$inData['cpassword'] = $this->input->post('cpassword');
-			$inData['udob'] = $this->input->post('udob');
-			$inData['uzipcode'] = $this->input->post('uzipcode');
-			$inData['ucountry'] = $this->input->post('ucountry');
+			$inData['u_fullname'] = $this->input->post('ufullname');
+			$inData['u_email'] = $this->input->post('uemail');
+			
+			$u_username = explode('@', $inData['u_email']);
+			$inData['u_username'] = $u_username[0];
+			$inData['u_password'] = $this->input->post('upassword');
+			$inData['c_password'] = $this->input->post('cpassword');
+			$inData['u_dob'] = $this->input->post('udob');
+			$inData['u_zipcode'] = $this->input->post('uzipcode');
+			$inData['u_country'] = $this->input->post('ucountry');
 
-			if($inData['upassword'] === $inData['cpassword']) {
+			if($inData['u_password'] === $inData['c_password']) {
 				$salt = 'MY_BEST_SALT';
-				$inData['cpassword'] = md5($inData['cpassword'].$salt);
+				$inData['u_password'] = md5($inData['c_password'].$salt);
 
 				$this->user_model->register($inData);
 				$_POST['btn-login-submit'] = 1;
@@ -82,13 +84,24 @@ class User extends CI_Controller {
 			$responseData = array('e_code' => '0', 'e_message' => '');
 			if($this->user_model->login($inData, $responseData)) {
 				/* $responseData['e_code'] value would be 1 */
+				
 				/* Create session for the user */
+				$userdata = array(
+                   'userid'  => $responseData['user']['u_id'],
+                   'userappid'  => $responseData['user']['u_app_uid'],
+                   'username'  => $responseData['user']['u_username'],
+                   'email'     => $responseData['user']['u_email'],
+                   'zipcode'     => $responseData['user']['u_zipcode'],
+                   'logged_in' => TRUE
+               	);
+				$this->session->set_userdata($userdata);
 
 				/* Log user activity */
 				$activity = array('u_id' => ''); /* @todo */
 
+				$this->load->helper('url');
 				/* redirect to the home after login. */
-				redirect(base_url(). "/home");
+				redirect(base_url(). "home");
 			} else {
 				/* Unable to login */
 				switch($responseData['e_code']) {
@@ -187,7 +200,7 @@ class User extends CI_Controller {
 		// @todo : need to decrypt
         $cookieData = json_decode($this->input->cookie("ud"));
         
-		return $cookieData;
+		return (Array) $cookieData;
 	}
 
 	private function delRememderMeCookie() {

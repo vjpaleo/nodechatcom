@@ -114,3 +114,6 @@ $autoload['model'] = array();
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
+
+
+$autoload['libraries'] = array('database', 'session');
