@@ -10,3 +10,8 @@ CI -
 
 Node -
 1) Access cache data from couchbase.
+
+Mar 03, 2014
+
+CI -
+1) Login, Session, Register -> Login - Phase 1
