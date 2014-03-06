@@ -99,9 +99,8 @@ class User extends CI_Controller {
 				/* Log user activity */
 				$activity = array('u_id' => ''); /* @todo */
 
-				$this->load->helper('url');
 				/* redirect to the home after login. */
-				redirect(base_url(). "home");
+				redirect(base_url(). "home/");
 			} else {
 				/* Unable to login */
 				switch($responseData['e_code']) {
@@ -134,10 +133,10 @@ class User extends CI_Controller {
 		// Lets try to get the key
 		$results = $this->memcached_library->get('4507');
 
-		var_dump($results);
+		//var_dump($results);
 
-		echo $this->memcached_library->getversion();
-		echo "<br/>";
+		//echo $this->memcached_library->getversion();
+		//echo "<br/>";
 
 		// We can use any of the following "reset, malloc, maps, cachedump, slabs, items, sizes"
 		$p = $this->memcached_library->getstats("sizes");
@@ -150,7 +149,7 @@ class User extends CI_Controller {
 			$this->memcached_library->add('foo', 'bar codeigniter');
 
 			// Output a basic msg
-			echo "Alright! Stored some results from the Query... Refresh Your Browser";
+			//echo "Alright! Stored some results from the Query... Refresh Your Browser";
 		}
 		else 
 		{
