@@ -13,17 +13,8 @@ class Home extends CI_Controller {
 	 */ 
 	public function index()
 	{
-		$sessData = $this->session->all_userdata();
-		
-		if(empty($sessData['userappid'])) {
-
-			/* redirect to the home after login. */
-			redirect(base_url(). "user/login");
-		}
 		$viewData = array();
-		$viewData['email'] = $sessData['email'];
-
-
+		
 		
 		$content = $this->load->view('home/manage', $viewData, true);
 

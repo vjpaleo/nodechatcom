@@ -100,7 +100,7 @@ class User extends CI_Controller {
 				$activity = array('u_id' => ''); /* @todo */
 
 				/* redirect to the home after login. */
-				redirect(base_url(). "home/");
+				redirect(base_url(). "dashboard/");
 			} else {
 				/* Unable to login */
 				switch($responseData['e_code']) {
@@ -163,6 +163,22 @@ class User extends CI_Controller {
 		$content = $this->load->view('user/login_form', $formData, true);
 
 		$this->render($content, __function__);
+	}
+
+	public function logout() {
+
+		$userdata = array(
+               'userid'  => '',
+               'userappid'  => '',
+               'username'  => '',
+               'email'     => '',
+               'zipcode'     => '',
+               'logged_in' => FALSE
+           	);
+			
+		$this->session->unset_userdata($userdata);		
+		/* redirect to the home after logout. */
+		redirect(base_url(). "home/");
 	}
 
 	protected function render($content, $action = '') {
