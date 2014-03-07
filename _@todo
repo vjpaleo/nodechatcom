@@ -2,11 +2,9 @@ Feb 28, 2014
 
 CI -
 1) JS Validation of all registration form elements.
-2) Terms and Condition check box.
-3) Save user data after registration form submit.
-4) Create user session in php.
-5) Save session id and user data in cache - couchbase.
-6) Redirect user to home page and show welcome message.
+2) Save user data after registration form submit.
+3) Create user session in php.
+4) Redirect user to home page and show welcome message.
 
 Node -
 1) Access cache data from couchbase.
@@ -15,3 +13,9 @@ Mar 03, 2014
 
 CI -
 1) Login, Session, Register -> Login - Phase 1
+
+Mar 06, 2014
+1) Terms and Condition check box.
+2) Save session id and user data in cache - couchbase.
+
+
