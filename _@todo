@@ -19,7 +19,7 @@ Mar 06, 2014
 2) Create template for home page.
 3) Apply logged in user access to user dashboard.
 
-Mar 07, 2014
+Mar 08, 2014
 1) Terms and Condition check box.
 2) Save session id and user data in cache - couchbase.
 3) Work on forget password page.
