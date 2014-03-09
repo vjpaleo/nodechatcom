@@ -21,6 +21,9 @@ Mar 06, 2014
 
 Mar 08, 2014
 1) Terms and Condition check box.
+
+Mar 09, 2014
+1) Create a couchbase library class to save seesion data.
 2) Save session id and user data in cache - couchbase.
 3) Work on forget password page.
 
