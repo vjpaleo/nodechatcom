@@ -43,7 +43,9 @@
             <lable for="ucountry">Country : </lable>
             <input type="hidden" name="ucountry" value="<?=($ucountry) ?: NULL;?>" class="form-control" placeholder="Enter your country" required>
             <div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true"></div>
-            <br/><br/>
+            <br/>
+             <input type="checkbox" name="accept_terms" value="yes" /> I agree to the <a href="#terms">NodeChat Terms</a> and <a herf="#policy">Policy</a>.
+             <br/><br/>
             <button class="btn btn-lg btn-primary btn-block" name="btn-register-submit" type="submit">Sign up</button>
           
           </fieldset>
@@ -92,6 +94,9 @@ $(document).ready(function () {
               text: true
           },
           ucountry: {
+              required: true
+          },
+          accept_terms: {
               required: true
           },
           
