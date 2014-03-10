@@ -22,9 +22,12 @@ Mar 06, 2014
 Mar 08, 2014
 1) Terms and Condition check box.
 
-Mar 09, 2014
+Mar 10, 2014
 1) Create a couchbase library class to save seesion data.
-2) Save session id and user data in cache - couchbase.
-3) Work on forget password page.
+2) Save user data in couchbase.
+3) Save session id and user data in cache - couchbase.
+4) Work on forget password page.
 
-
+Pending TODO:
+1) Make user data accessable through static methods.
+2) Create a helper for static variables of user data.
