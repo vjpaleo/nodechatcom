@@ -96,6 +96,10 @@ class User extends CI_Controller {
                	);
 				$this->session->set_userdata($userdata);
 
+				/* Save data in couchbase. */
+				$this->load->library('couchbase');
+				$this->couchbase->set($responseData['user']['u_app_uid'], json_encode($responseData['user']));
+
 				/* Log user activity */
 				$activity = array('u_id' => ''); /* @todo */
 
