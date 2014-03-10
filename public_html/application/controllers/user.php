@@ -11,6 +11,9 @@ class User extends CI_Controller {
 		/* $this->user_model */
 		$this->load->model('user_model');
 
+		/* Load user cookie helper. */
+		$this->load->helper('user_cookie');
+
 	}
 
 	/**
@@ -74,7 +77,7 @@ class User extends CI_Controller {
 			$inData['email'] = $this->input->post('uemail');
 			$inData['password'] = $this->input->post('upassword');
 			$inData['rememberme'] = $this->input->post('rememberme');
-
+			
 			// @todo : Move it inside after login.
 			if($inData['rememberme']) {
 				$this->setRememderMeCookie($inData);
@@ -94,7 +97,11 @@ class User extends CI_Controller {
                    'zipcode'     => $responseData['user']['u_zipcode'],
                    'logged_in' => TRUE
                	);
+
 				$this->session->set_userdata($userdata);
+
+				/* Cookie u app id.*/
+				setUserCookie(array('uai' => $responseData['user']['u_app_uid']));
 
 				/* Save data in couchbase. */
 				$this->load->library('couchbase');
@@ -129,7 +136,7 @@ class User extends CI_Controller {
 			$formData['rememberme'] = $cookieData['rm'];
 		}
 
-		// Load library
+		/* Load library
 		$this->load->library('memcached_library');
 
 		//$this->memcached_library->add('foo', 'bar codeigniter');
@@ -163,12 +170,25 @@ class User extends CI_Controller {
 			// Now let us delete the key for demonstration sake!
 			//$this->memcached_library->delete('test');
 		}
-
+		*/
 		$content = $this->load->view('user/login_form', $formData, true);
 
 		$this->render($content, __function__);
 	}
 
+	public function profile() {
+
+		$cookie_u = getUserCookie();
+		
+		$uSessData = $this->couchbase->get($cookie_u['uai']);
+
+		$viewData = array();
+		$viewData['user'] = $uSessData;
+
+		$content = $this->load->view('user/profile', $viewData, true);
+
+		$this->render($content, __function__, 'layout_db');
+	}
 	public function logout() {
 
 		$userdata = array(
@@ -185,12 +205,12 @@ class User extends CI_Controller {
 		redirect(base_url(). "home/");
 	}
 
-	protected function render($content, $action = '') {
+	protected function render($content, $action = '', $layout = false) {
 		$view_data = array (
 			'content' => $content,
 			'pageTitle' => ucfirst(__class__. ' ' .$action)
 			);
-		$this->load->view('layout', $view_data);
+		$this->load->view((($layout)?$layout:'layout'), $view_data);
 	}
 
 
@@ -225,6 +245,35 @@ class User extends CI_Controller {
 	private function delRememderMeCookie() {
 		$this->load->helper('cookie');
 		$this->input->set_cookie("ud", NULL,time()-3600);
+	    
+		
+	}
+
+	private function setUserCookie($cookieData = array()) {
+		if(!empty($cookieData)) {
+
+			$this->load->helper('cookie');
+			// @todo : need to encrypt the data using some salt.
+			$encodeCookieData = json_encode('u', $cookieData);
+	        $this->input->set_cookie("ud", $encodeCookieData,time()+3600);
+	        	
+		}
+		
+	}
+
+	private function getUserCookie() {
+		
+		$this->load->helper('cookie');
+
+		// @todo : need to decrypt
+        $cookieData = json_decode($this->input->cookie("u"));
+        
+		return (Array) $cookieData;
+	}
+
+	private function delUserCookie() {
+		$this->load->helper('cookie');
+		$this->input->set_cookie("u", NULL,time()-3600);
 	    
 		
 	}

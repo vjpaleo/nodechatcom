@@ -38,12 +38,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Node Chat</a>
+          <?php
+            $cookie_u = getUserCookie();
+            $uSessData = json_decode($this->couchbase->get($cookie_u['uai']));
+          ?>
+          <a class="navbar-brand" href="/dashboard/">Node Chat</a> <span class="navbar-brand">|</span> <span class="navbar-brand"> Welcome <?php echo $uSessData->u_fullname; ?>!</span>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+           
             <li><a href="/dashboard/">Dashboard</a></li>
-            <li><a href="/dashboad/settings">Settings</a></li>
+            <li><a href="/dashboard/settings">Settings</a></li>
             <li><a href="/user/profile">Profile</a></li>
             <li><a href="/user/logout">Logout</a></li>
             <li><a href="#">Help</a></li>

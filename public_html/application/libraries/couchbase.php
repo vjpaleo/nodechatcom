@@ -4,7 +4,7 @@
  * Couchbase wrapper class.
  */
 
-final class couchbase 
+class cb_cache
 {
 
 	private $handle;
@@ -22,7 +22,7 @@ final class couchbase
 				$this->handle->set($key, $data);
 			}	
 		} catch (Exception $e) {
-
+			exit($e->getMessage());
 		}
 		
 
@@ -33,10 +33,11 @@ final class couchbase
 		try {
 
 			if($this->handle instanceof Couchbase) {
-				return $this->handle->get($key);
+				$data = json_decode($this->handle->get($key));
+				return json_decode($data);
 			}	
 		} catch (Exception $e) {
-
+			exit($e->getMessage());
 		}
 	}
 

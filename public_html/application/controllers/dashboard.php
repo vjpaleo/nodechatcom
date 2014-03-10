@@ -11,6 +11,17 @@ class Dashboard extends CI_Controller {
 		/* $this->dashboard_model */
 		//$this->load->model('dashboard_model');
 
+		/* Load user cookie helper. */
+		$this->load->helper('user_cookie');
+
+		$cookie_u = getUserCookie();
+		
+		if(empty($cookie_u['uai']) ) {
+
+			/* redirect to the home after login. */
+			redirect(base_url(). "user/login");
+		}
+
 	}
 
 	/**
@@ -18,22 +29,39 @@ class Dashboard extends CI_Controller {
 	 */ 
 	public function index()
 	{
-		$sessData = $this->session->all_userdata();
 		
-		if(empty($sessData['userappid'])) {
+		$cookie_u = getUserCookie();
+		
+		$uSessData = $this->couchbase->get($cookie_u['uai']);
 
-			/* redirect to the home after login. */
-			redirect(base_url(). "user/login");
-		}
 		$viewData = array();
 
-		$viewData['email'] = $sessData['email'];
+		$viewData['email'] = $uSessData['u_email'];
 
 		$content = $this->load->view('dashboard/manage', $viewData, true);
 
 		$this->render($content, __function__);
 	}
 	
+	/**
+	 * User Controller
+	 */ 
+	public function settings()
+	{
+		
+		$cookie_u = getUserCookie();
+		
+		$uSessData = $this->couchbase->get($cookie_u['uai']);
+
+		$viewData = array();
+
+		$viewData['email'] = $uSessData['u_email'];
+
+		$content = $this->load->view('dashboard/settings', $viewData, true);
+
+		$this->render($content, __function__);
+	}
+
 	/**
 	 * Render page in layout
 	 */

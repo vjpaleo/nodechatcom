@@ -9,7 +9,7 @@ error_reporting(E_ALL | E_STRICT | E_DEPRECATED);
  * @package Couchbase
  */
 
-class couchbase extends Memcached
+class couchbase_lib extends Memcached
 {
 	
 	private static $_objClass;

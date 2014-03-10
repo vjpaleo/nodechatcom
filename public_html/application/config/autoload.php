@@ -64,7 +64,7 @@ $autoload['libraries'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url', 'cookie', 'user_cookie');
 
 
 /*
@@ -116,4 +116,4 @@ $autoload['model'] = array();
 /* Location: ./application/config/autoload.php */
 
 
-$autoload['libraries'] = array('database', 'session');
+$autoload['libraries'] = array('database', 'session', 'couchbase');
