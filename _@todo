@@ -25,8 +25,13 @@ Mar 08, 2014
 Mar 10, 2014
 1) Create a couchbase library class to save seesion data.
 2) Save user data in couchbase.
+
+Mar 11, 2014
+1) Updated login form with better UI.
+2) Added chat box frame on user dashboard.
 3) Save session id and user data in cache - couchbase.
 4) Work on forget password page.
+
 
 Pending TODO:
 1) Make user data accessable through static methods.
