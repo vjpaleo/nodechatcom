@@ -131,9 +131,12 @@ class User extends CI_Controller {
 
 		} else {
 			$cookieData = $this->getRememderMeCookie();
-			$formData['email'] = $cookieData['em'];
-			$formData['password'] = $cookieData['pw'];
-			$formData['rememberme'] = $cookieData['rm'];
+			
+			$formData['email'] = isset($cookieData['em']) ? $cookieData['em'] : '';
+			$formData['password'] = isset($cookieData['pw']) ? $cookieData['pw'] : '';
+			$formData['rememberme'] = isset($cookieData['rm']) ? $cookieData['rm'] : '';	
+			
+			
 		}
 
 		/* Load library

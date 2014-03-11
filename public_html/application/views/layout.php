@@ -40,7 +40,7 @@
   <body>
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-relative-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -92,8 +92,7 @@
     
     <!-- FOOTER -->
     <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-      <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      <p style=" margin-top:20px; text-align:center;">&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </footer>
     
    <!-- Include all compiled plugins (below), or include individual files as needed -->
