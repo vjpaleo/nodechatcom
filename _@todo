@@ -30,9 +30,11 @@ Mar 11, 2014
 1) Updated login form with better UI.
 2) Added chat box frame on user dashboard.
 3) Save session id and user data in cache - couchbase.
-4) Work on forget password page.
 
+Mar 12, 2014
+1) Connect static chat box on dashboardpage with node app.
 
 Pending TODO:
 1) Make user data accessable through static methods.
 2) Create a helper for static variables of user data.
+3)Work on forget password page.
