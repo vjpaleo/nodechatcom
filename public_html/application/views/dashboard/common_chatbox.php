@@ -40,6 +40,9 @@ jQuery(document).ready(function () {
 			jQuery('#chat_box').val('');
 		}
 	});
+
+  socket.emit('chat', {message: "this is a test message"});
+      
 });
 
 </script>
