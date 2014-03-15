@@ -5,43 +5,60 @@ jQuery.noConflict();
 
 jQuery(document).ready(function () {
 	var log_chat_message = function  (message, type) {
+
 		var li = jQuery('<li />').text(message);
+
+    $('#left_chat p').html(message);
+    $('#left_chat #time').html($.now());
+
+		li = jQuery('#left_chat').html();
 		
-		if (type === 'system') {
+    /*
+    if (type === 'system') {
 			li.css({'font-weight': 'bold'});
 		} else if (type === 'leave' || type === 'error') {
 			li.css({'font-weight': 'bold', 'color': '#F00'});
 		}
-				
+		*/
+
 		jQuery('#chat_log').append(li);
 	};
 
 	var socket = io.connect('http://localhost:3000');
 
 	socket.on('entrance', function  (data) {
+    alert('entrance' + data);
 		log_chat_message(data.message, 'system');
 	});
 
 	socket.on('exit', function  (data) {
+    alert('exit' + data);
 		log_chat_message(data.message, 'leave');
 	});
 
-	socket.on('chat', function  (data) {
+	socket.on('message', function  (data) {
+    alert('message ' + data.message);
 		log_chat_message(data.message, 'normal');
 	});
 
-	socket.on('error', function  (data) {
+	socket.on('chat', function  (data) {
+    alert('chat' + data.message);
+    log_chat_message(data.message, 'normal');
+  });
+
+  socket.on('error', function  (data) {
+    alert('error' + data.message);
 		log_chat_message(data.message, 'error');
 	});
 
 	jQuery('#chat_box').keypress(function (event) {
-		if (event.which == 13) {
-			socket.emit('chat', {message: jQuery('#chat_box').val()});
+
+    if (event.which == 13) {
+      socket.emit('message', {message: jQuery('#chat_box').val()});
+      //log_chat_message(jQuery('#chat_box').val(), 'normal');
 			jQuery('#chat_box').val('');
 		}
 	});
-
-  socket.emit('chat', {message: "this is a test message"});
       
 });
 
@@ -74,7 +91,7 @@ jQuery(document).ready(function () {
             </div>
 
                 <div class="panel-body">
-                    <ul class="chat">
+                    <ul class="chat" id="chat_log">
                         <li class="left clearfix"><span class="chat-img pull-left">
                             <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
                         </span>
@@ -135,7 +152,7 @@ jQuery(document).ready(function () {
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <input  id="chat_box" type="text" class="form-control input-sm" placeholder="Type your message here..." />
                         <span class="input-group-btn">
                             <button class="btn btn-warning btn-sm" id="btn-chat">
                                 Send</button>
@@ -145,13 +162,45 @@ jQuery(document).ready(function () {
               </div>
             </div>
           </div>
-              <style>
-              {
+          <div id="right_chat" style="display:none;">
+            <li class="right clearfix"><span class="chat-img pull-right">
+                  <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+              </span>
+                <div class="chat-body clearfix">
+                    <div class="header">
+                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
+                        <strong class="pull-right primary-font">Nicola</strong>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                        dolor, quis ullamcorper ligula sodales.
+                    </p>
+                </div>
+            </li>
+          </div>
+          <div id="left_chat" style="display:none;">
+            <li class="left clearfix"><span class="chat-img pull-left">
+                  <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+              </span>
+                  <div class="chat-body clearfix">
+                      <div class="header">
+                          <strong class="primary-font">Masud</strong> <small class="pull-right text-muted">
+                              <span class="glyphicon glyphicon-time"></span><span id="time">14 mins</span> ago</small>
+                      </div>
+                      <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                          dolor, quis ullamcorper ligula sodales.
+                      </p>
+                  </div>
+              </li>
+          </div>
+<style>
+/*              {
     list-style: none;
     margin: 0;
     padding: 0;
 }
- 
+ */
 .chat li
 {
     margin-bottom: 10px;
@@ -183,7 +232,7 @@ jQuery(document).ready(function () {
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 300px;
 }
  
 ::-webkit-scrollbar-track
@@ -203,4 +252,4 @@ jQuery(document).ready(function () {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
 }
-              </style>
+</style>
