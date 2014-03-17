@@ -32,12 +32,12 @@ class Dashboard extends CI_Controller {
 		
 		$cookie_u = getUserCookie();
 		
-		$uSessData = $this->couchbase->get($cookie_u['uai']);
+		$uSessData = $this->cb_cache->get($cookie_u['uai']);
 
 		$viewData = array();
-
 		$viewData['email'] = $uSessData['u_email'];
-
+		$viewData['uai'] = $uSessData['u_app_uid'];
+		
 		$content = $this->load->view('dashboard/manage', $viewData, true);
 
 		$this->render($content, __function__);
@@ -51,7 +51,7 @@ class Dashboard extends CI_Controller {
 		
 		$cookie_u = getUserCookie();
 		
-		$uSessData = $this->couchbase->get($cookie_u['uai']);
+		$uSessData = $this->cb_cache->get($cookie_u['uai']);
 
 		$viewData = array();
 

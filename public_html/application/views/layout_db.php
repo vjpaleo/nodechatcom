@@ -40,9 +40,9 @@
           </button>
           <?php
             $cookie_u = getUserCookie();
-            $uSessData = json_decode($this->couchbase->get($cookie_u['uai']));
+            $uSessData = $this->cb_cache->get($cookie_u['uai']);
           ?>
-          <a class="navbar-brand" href="/dashboard/">Node Chat</a> <span class="navbar-brand">|</span> <span class="navbar-brand"> Welcome <?php echo $uSessData->u_fullname; ?>!</span>
+          <a class="navbar-brand" href="/dashboard/">Node Chat</a> <span class="navbar-brand">|</span> <span class="navbar-brand"> Welcome <?php echo $uSessData['u_fullname']; ?>!</span>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">

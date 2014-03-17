@@ -116,4 +116,4 @@ $autoload['model'] = array();
 /* Location: ./application/config/autoload.php */
 
 
-$autoload['libraries'] = array('database', 'session', 'couchbase');
+$autoload['libraries'] = array('database', 'session', 'cb_cache');

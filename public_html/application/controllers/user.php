@@ -104,8 +104,9 @@ class User extends CI_Controller {
 				setUserCookie(array('uai' => $responseData['user']['u_app_uid']));
 
 				/* Save data in couchbase. */
-				$this->load->library('couchbase');
-				$this->couchbase->set($responseData['user']['u_app_uid'], json_encode($responseData['user']));
+				$this->load->library('cb_cache');
+
+				$this->cb_cache->set($responseData['user']['u_app_uid'], json_encode($responseData['user']));
 
 				/* Log user activity */
 				$activity = array('u_id' => ''); /* @todo */
@@ -183,7 +184,7 @@ class User extends CI_Controller {
 
 		$cookie_u = getUserCookie();
 		
-		$uSessData = $this->couchbase->get($cookie_u['uai']);
+		$uSessData = $this->cb_cache->get($cookie_u['uai']);
 
 		$viewData = array();
 		$viewData['user'] = $uSessData;

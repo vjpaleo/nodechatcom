@@ -26,8 +26,16 @@ jQuery(document).ready(function () {
 
 	var socket = io.connect('http://localhost:3000');
 
-	socket.on('entrance', function  (data) {
-    alert('entrance' + data);
+  socket.emit('auth', {uai: <?php echo $uai;?>});
+      
+	socket.on('auth', function  (data) {
+    alert('entrance' + data.message);
+    log_chat_message(data.message, 'system');
+  });
+
+  /* When user enters the chat box. */
+  socket.on('welcome', function  (data) {
+    alert('welcome' + data['message'] /*+ <?php echo $uai;?>*/);
 		log_chat_message(data.message, 'system');
 	});
 
