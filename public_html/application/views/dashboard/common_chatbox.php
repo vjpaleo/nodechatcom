@@ -29,8 +29,24 @@ jQuery(document).ready(function () {
   socket.emit('auth', {uai: <?php echo $uai;?>});
       
 	socket.on('auth', function  (data) {
+    
     alert('entrance' + data.message);
     log_chat_message(data.message, 'system');
+
+  });
+
+  socket.on('auth_response', function(data) {
+
+    alert('auth_response : ' + data.message);
+
+    if(data.message == 'success') {
+      /**
+       * auth success
+       * emit user welcome message in room. 
+       */
+      log_chat_message(data.message, 'system');
+      socket.emit('welcome', {uai: <?php echo $uai;?>};
+    }
   });
 
   /* When user enters the chat box. */
